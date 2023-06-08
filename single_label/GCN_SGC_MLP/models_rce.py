@@ -13,14 +13,6 @@ class GCN(nn.Module):
 
         self.gc1 = GraphConvolution(nfeat, nhid)
         self.gc2 = GraphConvolution(nhid, nhid)
-        
-        #self.gc3 = GraphConvolution(nhid, nhid)
-        #self.gc4 = GraphConvolution(nhid, nhid)
-        #self.gc5 = GraphConvolution(nhid, nhid)
-        #self.gc6 = GraphConvolution(nhid, nhid)
-        #self.gc7 = GraphConvolution(nhid, nhid)
-        #self.gc8 = GraphConvolution(nhid, nhid)
-        
         self.fc1 = nn.Linear(nhid * 2, nclass * nclass)
         
         self.dropout = dropout
@@ -28,21 +20,6 @@ class GCN(nn.Module):
 
     def forward(self, x, adj, cluster_id, cluster_index, is_val = False):
         x = F.relu(self.gc1(x, adj))
-        
-        #x = F.dropout(x, self.dropout, training=self.training)
-        #x = F.relu(self.gc2(x, adj))
-        #x = F.dropout(x, self.dropout, training=self.training)
-        #x = F.relu(self.gc3(x, adj))
-        #x = F.dropout(x, self.dropout, training=self.training)
-        #x = F.relu(self.gc4(x, adj))
-        #x = F.dropout(x, self.dropout, training=self.training)
-        #x = F.relu(self.gc5(x, adj))
-        #x = F.dropout(x, self.dropout, training=self.training)
-        #x = F.relu(self.gc6(x, adj))
-        #x = F.dropout(x, self.dropout, training=self.training)
-        #x = F.relu(self.gc7(x, adj))
-        #embeds = torch.mm(adj, x)
-        
         x = F.dropout(x, self.dropout, training=self.training)
         x = torch.mm(adj, x)
         
@@ -57,12 +34,8 @@ class GCN(nn.Module):
         
         x = self.fc1(x)
         return x
-        #return x, embeds, cluster_features
-
-
-
-
-
+    
+    
 class MLP(nn.Module):
     def __init__(self, nfeat, nhid, nclass, dropout):
         super(MLP, self).__init__()
@@ -73,9 +46,6 @@ class MLP(nn.Module):
         self.nclass = nclass
 
     def forward(self, x, adj, cluster_id, cluster_index, is_val = False):
-        #x = self.fc1(x)
-        #embeds = x
-        #x = F.relu(x)
         x = F.relu(self.fc1(x))
         x = F.dropout(x, self.dropout, training=self.training)
         
@@ -91,8 +61,6 @@ class MLP(nn.Module):
         x = self.fc2(x)
 
         return x
-        #return x, embeds, cluster_features
-
 
     
                                             
