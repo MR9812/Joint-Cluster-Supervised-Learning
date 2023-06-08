@@ -82,9 +82,6 @@ def train(model, optimizer, epoch, features, adj, idx_train, idx_val, idx_test, 
     p_label = y_pre.view(-1, num_classes, num_classes)
     p_label = p_label.sum(dim=2)
     acc_train = accuracy(p_label[:int(p_label.shape[0]/2)], labels[idx_train])
-    #acc_train = f1_score(labels[idx_train].detach().cpu().numpy(), p_label[:int(p_label.shape[0]/2)].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='micro')
-    #acc_train = f1_score(labels[idx_train].detach().cpu().numpy(), p_label[:int(p_label.shape[0]/2)].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='macro')
-    #acc_train = f1_score(labels[idx_train].detach().cpu().numpy(), p_label[:int(p_label.shape[0]/2)].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='weighted')
     
     #relation ce : ground truth
     p_label1 = one_hot(labels[idx_train],  num_classes).cuda()
@@ -108,15 +105,8 @@ def train(model, optimizer, epoch, features, adj, idx_train, idx_val, idx_test, 
     y_pre = F.softmax(y_pre, dim=1)
     p_label = y_pre.view(-1, num_classes, num_classes)
     p_label = p_label.sum(dim=2)
-    acc_val = accuracy(p_label[idx_val], labels[idx_val])   #gai
-    #acc_val = f1_score(labels[idx_val].detach().cpu().numpy(), p_label[idx_val].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='micro')
-    #acc_val = f1_score(labels[idx_val].detach().cpu().numpy(), p_label[idx_val].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='macro')
-    #acc_val = f1_score(labels[idx_val].detach().cpu().numpy(), p_label[idx_val].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='weighted')
-    
+    acc_val = accuracy(p_label[idx_val], labels[idx_val]) 
     acc_test = accuracy(p_label[idx_test], labels[idx_test])
-    #acc_test = f1_score(labels[idx_test].detach().cpu().numpy(), p_label[idx_test].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='micro')
-    #acc_test = f1_score(labels[idx_test].detach().cpu().numpy(), p_label[idx_test].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='macro')
-    #acc_test = f1_score(labels[idx_test].detach().cpu().numpy(), p_label[idx_test].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='weighted')
     
     #relation ce : ground truth
     p_label1 = one_hot(labels[idx_val],  num_classes).cuda()
@@ -148,10 +138,7 @@ def test(model, features, adj, labels, idx_train, idx_val, idx_test, index, num_
     p_label = y_pre.view(-1, num_classes, num_classes)
     p_label = p_label.sum(dim=2)
     acc_test = accuracy(p_label[idx_test], labels[idx_test])
-    #acc_test = f1_score(labels[idx_test].detach().cpu().numpy(), p_label[idx_test].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='micro')
-    #acc_test = f1_score(labels[idx_test].detach().cpu().numpy(), p_label[idx_test].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='macro')
-    #acc_test = f1_score(labels[idx_test].detach().cpu().numpy(), p_label[idx_test].argmax(dim=-1, keepdim=True).detach().cpu().numpy(), average='weighted')
-
+   
     print("Test set results:",
           #"loss= {:.4f}".format(loss_test.item()),
           "accuracy= {:.4f}".format(acc_test.item()))
@@ -294,8 +281,8 @@ for run in range(args.runs):
 print("=== Final ===")
 print(torch.max(test_acc))
 print(torch.min(test_acc))
-print("10次平均",torch.mean(test_acc))
-print("10次标准差",test_acc.std())
+print("10 mean",torch.mean(test_acc))
+print("10 std",test_acc.std())
 print(test_acc)
 
 
