@@ -60,8 +60,8 @@ for run in range(args.runs):
 print("=== Final ===")
 print(torch.max(test_acc))
 print(torch.min(test_acc))
-print("10次平均",torch.mean(test_acc))
-print("10次标准差",test_acc.std())
+print("10 mean",torch.mean(test_acc))
+print("10 std",test_acc.std())
 print(test_acc)
 
 
