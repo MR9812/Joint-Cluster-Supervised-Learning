@@ -15,6 +15,12 @@ single_label/run.sh
 multi_label/run.sh
 imbalance/run.sh
 ```
+such as 
+```
+# GCN + joint-cluster loss
+cd single_label/GCN_SGC_MLP
+python train_rce.py --dataset Cora --encoder GCN --tau 0.1 --epochs 100
+```
 
 ## Citation
 If you find our repository useful for your research, please consider citing our paper:
