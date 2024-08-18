@@ -8,6 +8,12 @@ This is the official implementation of the following paper:
 
 In this work, we propose a new framework, termed joint-cluster supervised learning, to model the joint distribution of each node with its corresponding cluster. We learn the joint distribution of node and cluster labels conditioned on their representations, and train GNNs with the obtained joint loss. In this way, the data label reference signals extracted from the local cluster explicitly strengthen the discrimination ability on the target node. 
 
+## Dependencies
+
+- python 3.9.15
+- torch    2.3.1+cu118
+- torch_geometric 2.5.3
+
 ## The main experiments
 
 ```
