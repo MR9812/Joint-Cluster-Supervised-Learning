@@ -31,12 +31,6 @@ python train_rce.py --dataset Cora --encoder GCN --tau 0.1 --epochs 100
 ## Citation
 If you find our repository useful for your research, please consider citing our paper:
 ```
-@article{miao2024rethinking,
-  title={Rethinking Independent Cross-Entropy Loss For Graph-Structured Data},
-  author={Miao, Rui and Zhou, Kaixiong and Wang, Yili and Liu, Ninghao and Wang, Ying and Wang, Xin},
-  journal={arXiv preprint arXiv:2405.15564},
-  year={2024}
-}
 
 @InProceedings{miao2024rethinking,
   title={Rethinking Independent Cross-Entropy Loss For Graph-Structured Data},
