@@ -123,7 +123,7 @@ def main():
         adj_t = deg_inv_sqrt.view(-1, 1) * adj_t * deg_inv_sqrt.view(1, -1)
         for i in range(3):
             print("###")
-            x = torch.mm(adj_t.to_dense(), x)   
+            x = adj_t @ x   
         
     if args.use_node_embedding:
         embedding = torch.load('embedding.pt', map_location='cpu')
